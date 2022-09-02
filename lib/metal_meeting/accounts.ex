@@ -38,6 +38,21 @@ defmodule MetalMeeting.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single from a username.
+
+  Returns nil if no user exists with that username.
+
+  ## Examples
+
+      iex> get_user_by_username!('evan')
+      %User{}
+
+      iex> get_user_by_username!('missingno')
+      nil
+  """
+  def get_user_by_username(username), do: Repo.get_by(User, username: username)
+
+  @doc """
   Creates a user.
 
   ## Examples

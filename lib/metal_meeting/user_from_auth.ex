@@ -10,7 +10,7 @@ defmodule MetalMeeting.UserFromAuth do
   def find_or_create(%Auth{provider: :identity} = auth) do
     case validate_pass(auth.credentials) do
       :ok ->
-        {:ok, basic_info(auth)}
+        {:ok, get_user_info(auth)}
 
       {:error, reason} ->
         {:error, reason}
@@ -18,7 +18,25 @@ defmodule MetalMeeting.UserFromAuth do
   end
 
   def find_or_create(%Auth{} = auth) do
-    {:ok, basic_info(auth)}
+    {:ok, get_user_info(auth)}
+  end
+
+  defp get_user_info(auth) do
+    user_info = basic_info(auth)
+
+    case MetalMeeting.Accounts.get_user_by_username(user_info.email) do
+      nil ->
+        MetalMeeting.Accounts.create_user(%{
+          username: user_info.email,
+          password: Map.get(auth.credentials.other, :password, ""),
+          info: auth.info,
+          avatar: user_info.avatar,
+          name: user_info.name
+        })
+
+      user ->
+        user
+    end
   end
 
   # github does it this way
@@ -35,7 +53,12 @@ defmodule MetalMeeting.UserFromAuth do
   end
 
   defp basic_info(auth) do
-    %{id: auth.uid, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+    %{
+      id: auth.uid,
+      name: name_from_auth(auth),
+      avatar: avatar_from_auth(auth),
+      email: auth.info.email
+    }
   end
 
   defp name_from_auth(auth) do
