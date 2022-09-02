@@ -14,10 +14,20 @@ defmodule MetalMeetingWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", MetalMeetingWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    post "/:provider/callback", AuthController, :callback
+    delete "/logout", AuthController, :delete
+  end
+
   scope "/", MetalMeetingWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
