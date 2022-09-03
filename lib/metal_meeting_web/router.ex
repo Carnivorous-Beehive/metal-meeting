@@ -49,7 +49,7 @@ defmodule MetalMeetingWeb.Router do
   scope "/", MetalMeetingWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
+    live "/", PageLive, :index
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
