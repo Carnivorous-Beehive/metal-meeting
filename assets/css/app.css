@@ -1,6 +1,35 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+.spotify {
+  background-color: #1db954;
+  border: 0.1rem solid #1db954;
+  border-radius: 0.4rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  height: 3.8rem;
+  letter-spacing: .1rem;
+  line-height: 3.8rem;
+  padding: 0 3rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.spotify:hover {
+  color: #fff;
+  background-color: #1ed760;
+}
+
+.spotify:focus {
+  color: #fff;
+  background-color: #1aa34a;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.1)inset;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;

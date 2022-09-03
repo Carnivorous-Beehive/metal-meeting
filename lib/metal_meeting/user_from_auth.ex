@@ -24,18 +24,28 @@ defmodule MetalMeeting.UserFromAuth do
   defp get_user_info(auth) do
     user_info = basic_info(auth)
 
-    case MetalMeeting.Accounts.get_user_by_username(user_info.email) do
+    case MetalMeeting.Accounts.get_user_by_email(user_info.email) do
       nil ->
-        MetalMeeting.Accounts.create_user(%{
-          username: user_info.email,
-          password: Map.get(auth.credentials.other, :password, ""),
-          info: auth.info,
-          avatar: user_info.avatar,
-          name: user_info.name
-        })
+        create_user!(user_info)
 
       user ->
         user
+    end
+  end
+
+  defp create_user!(user_info) do
+    case MetalMeeting.Accounts.create_oauth_user(%{
+           username: user_info.email,
+           email: user_info.email,
+           password: user_info.password,
+           avatar: user_info.avatar,
+           name: user_info.name
+         }) do
+      {:ok, user} ->
+        user
+
+      {:error, err} ->
+        raise err
     end
   end
 
@@ -57,7 +67,9 @@ defmodule MetalMeeting.UserFromAuth do
       id: auth.uid,
       name: name_from_auth(auth),
       avatar: avatar_from_auth(auth),
-      email: auth.info.email
+      email: auth.info.email,
+      info: auth.info,
+      password: Map.get(auth.credentials.other, :password, :crypto.strong_rand_bytes(32))
     }
   end
 
