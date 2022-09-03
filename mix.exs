@@ -53,7 +53,10 @@ defmodule MetalMeeting.MixProject do
       {:ueberauth, "~> 0.7"},
       {:ueberauth_identity, "~> 0.3"},
       {:ueberauth_spotify,
-       git: "https://github.com/katafrakt/ueberauth_spotify.git", branch: "csrf-support"}
+       git: "https://github.com/katafrakt/ueberauth_spotify.git", branch: "csrf-support"},
+      {:castore, "~> 0.1.17"},
+      {:mint, "~> 1.4"},
+      {:tz, "~> 0.22.0"}
     ]
   end
 

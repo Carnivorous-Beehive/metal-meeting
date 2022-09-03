@@ -2,9 +2,15 @@ defmodule MetalMeetingWeb.PageLive do
   use MetalMeetingWeb, :live_view
   on_mount MetalMeeting.UserLiveAuth
 
+  alias MetalMeeting.Schedules
+  alias MetalMeeting.Schedules.Meeting
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+    {:ok,
+     socket
+     |> assign(query: "", results: %{})
+     |> assign(upcoming_meetings: Schedules.get_upcoming_meetings())}
   end
 
   @impl true
