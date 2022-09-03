@@ -1,6 +1,40 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'DS Zierschrift', sans-serif;
+}
+
+body, header {
+  background-color: black;
+  color: lightyellow;
+}
+
+header {
+  border-bottom: none;
+}
+
+a,
+a:visited {
+  color: lightyellow;
+  text-decoration: underline;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: palegoldenrod
+}
+
+h1.brand {
+  font-size: 6rem;
+}
+
 .spotify {
   background-color: #1db954;
   border: 0.1rem solid #1db954;
@@ -38,9 +72,9 @@
   border-radius: 4px;
 }
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  color: navy;
+  background-color: lightblue;
+  border-color: darkblue;
 }
 .alert-warning {
   color: #8a6d3b;
