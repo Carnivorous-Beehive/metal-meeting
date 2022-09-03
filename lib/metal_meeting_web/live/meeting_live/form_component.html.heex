@@ -1,0 +1,36 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="meeting-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+
+    <%= hidden_input f, :user_id, [value: @current_user.id] %>
+
+    <div>
+      <%= label f, :name %>
+      <%= text_input f, :name %>
+      <%= error_tag f, :name %>
+    </div>
+
+    <div>
+      <%= label f, :scheduled_at %>
+      <%= datetime_local_input f, :scheduled_at %>
+      <%= error_tag f, :scheduled_at %>
+    </div>
+
+    <div>
+      <%= label f, :recurring %>
+      <%= checkbox f, :recurring %>
+      <%= error_tag f, :recurring %>
+    </div>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

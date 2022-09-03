@@ -1,5 +1,6 @@
 defmodule MetalMeetingWeb.PageLive do
   use MetalMeetingWeb, :live_view
+  on_mount MetalMeeting.UserLiveAuth
 
   @impl true
   def mount(_params, _session, socket) do

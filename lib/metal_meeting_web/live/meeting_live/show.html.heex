@@ -1,0 +1,27 @@
+<h1>Show Meeting</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.meeting_show_path(@socket, :show, @meeting)}>
+    <.live_component
+      module={MetalMeetingWeb.MeetingLive.FormComponent}
+      id={@meeting.id}
+      title={@page_title}
+      action={@live_action}
+      meeting={@meeting}
+      current_user={@current_user}
+      return_to={Routes.meeting_show_path(@socket, :show, @meeting)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @meeting.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.meeting_show_path(@socket, :edit, @meeting), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.meeting_index_path(@socket, :index) %></span>
